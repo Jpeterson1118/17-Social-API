@@ -12,7 +12,7 @@ export const getAllUsers = async (_req: Request, res: Response) => {
     };
 };
 
-export const getSingleUser = async (req: Request, res: Response) => {
+export const getOneUser = async (req: Request, res: Response) => {
     try {
         const user = await User.findOne({ _id: req.params.userId })
             .select('-__v');

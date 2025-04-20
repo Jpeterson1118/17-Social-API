@@ -1,4 +1,4 @@
-import { Thought, User } from "../models/index.js";
+import { Thought } from "../models/index.js";
 import { Request, Response } from 'express';
 
 export const createReaction = async (req: Request, res: Response) => {

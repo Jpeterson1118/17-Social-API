@@ -11,7 +11,7 @@ export const getThoughts = async (_req: Request, res: Response) => {
     };
 };
 
-export const getThought = async (req: Request, res: Response) => {
+export const getOneThought = async (req: Request, res: Response) => {
     try {
         const thought = await Thought.findOne({ _id: req.params.thoughtId })
             .select('-__V');
