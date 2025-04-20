@@ -1,5 +1,5 @@
 import { Schema, Types, Document, ObjectId } from 'mongoose';
-import parseDate from '../utils/parseDate';
+import parseDate from '../utils/parseDate.js';
 
 interface IReaction extends Document {
     reactionId: ObjectId;

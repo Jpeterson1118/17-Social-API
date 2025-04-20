@@ -1,6 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
-import parseDate from '../utils/parseDate';
-import reaction from './reaction';
+import parseDate from '../utils/parseDate.js';
+import reaction from './reaction.js';
 
 
 interface IThought extends Document {
