@@ -3,14 +3,14 @@ import { Request, Response } from 'express';
 
 export const createReaction = async (req: Request, res: Response) => {
     try {
-        const thought = Thought.findByIdAndUpdate(
+        const thought = await Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
-            { $addToSet: { reactions: { reactions: req.body } } },
+            { $addToSet: { reactions: req.body } },
             { runValidators: true, new: true }
         );
 
         if (!thought) {
-            return res.status(403).json({ message: 'Head empty, thought not found.' });
+            return res.status(404).json({ message: 'Head empty, thought not found.' });
         };
 
         res.json(thought);
@@ -24,9 +24,9 @@ export const createReaction = async (req: Request, res: Response) => {
 
 export const deleteReaction = async (req: Request, res: Response) => {
     try {
-        const thought = Thought.findOneAndUpdate(
+        const thought = await Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
-            { $pull: { reactions: { reactionId: req.params.reactionId } } },
+            { $pull: { reactions: { reactionId: req.body.reactionId } } },
             {runValidators: true, new: true }
         );
 

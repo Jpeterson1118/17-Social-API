@@ -75,7 +75,9 @@ export const updateThought = async (req: Request, res: Response) => {
 
 export const headEmpty = async (req: Request, res: Response) => {
     try {
-        const thought = Thought.findOneAndDelete({ _id: req.params.thoughtId});
+        const thought = await Thought.findOneAndDelete(
+            { _id: req.params.thoughtId }
+        );
 
         if(!thought) {
             return res.status(404).json({ message: 'Head empty, no thought found.' });
@@ -88,4 +90,4 @@ export const headEmpty = async (req: Request, res: Response) => {
         res.status(500).json(err);
         return;
     };
-}
+};
