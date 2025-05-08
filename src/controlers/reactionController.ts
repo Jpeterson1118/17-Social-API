@@ -31,7 +31,7 @@ export const deleteReaction = async (req: Request, res: Response) => {
         );
 
         if (!thought) {
-            res.status(404).json({ message: 'Head empty, thought not found' });
+            return res.status(404).json({ message: 'Head empty, thought not found' });
         };
 
         res.json(thought);
