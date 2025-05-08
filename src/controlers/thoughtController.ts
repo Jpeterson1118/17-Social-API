@@ -17,7 +17,7 @@ export const getOneThought = async (req: Request, res: Response) => {
             .select('-__V');
 
         if (!thought) {
-            res.status(404).json({ message: 'Head empty, thought not found' })
+            return res.status(404).json({ message: 'Head empty, thought not found' })
         };
 
         res.json(thought);
@@ -61,7 +61,7 @@ export const updateThought = async (req: Request, res: Response) => {
         );
 
         if (!thought) {
-            res.status(404).json({ message: 'Head empty, thought not found.' });
+            return res.status(404).json({ message: 'Head empty, thought not found.' });
         };
 
         res.json(thought);
@@ -75,13 +75,24 @@ export const updateThought = async (req: Request, res: Response) => {
 
 export const headEmpty = async (req: Request, res: Response) => {
     try {
+        const user = await User.findOneAndUpdate(
+            { _id: req.body.userId },
+            { $pull: { thoughts: req.params.thoughtId} },
+            { new: true }
+        );
+
         const thought = await Thought.findOneAndDelete(
             { _id: req.params.thoughtId }
         );
+        
 
         if(!thought) {
             return res.status(404).json({ message: 'Head empty, no thought found.' });
         };
+
+        if(!user) {
+            return res.status(404).json({ message: 'No associated user found'})
+        }
 
         res.json({ message: 'Thought deleted'});
         return;
